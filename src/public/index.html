@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse and manage country data with the Countries API.">
+  <title>Countries API</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+  
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Atlas home"><span class="brand-mark"></span><span class="brand-dot"></span></a>
+    <nav><a href="/docs">Documentation</a></nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="panel" aria-labelledby="explorer-title">
+      <div class="section-heading">
+        <button id="clear-filters" class="button button-quiet" type="button">Clear filters</button>
+      </div>
+
+      <form id="filter-form" class="filter-grid">
+        <label class="field field-wide">Search country name
+          <input id="search-name" type="search" placeholder="e.g. Japan" autocomplete="off">
+        </label>
+        <label class="field">Region
+          <select id="filter-region"><option value="">All regions</option></select>
+        </label>
+        <label class="field">Subregion
+          <input id="filter-subregion" type="text" placeholder="e.g. Eastern Asia">
+        </label>
+        <label class="field">Currency code
+          <input id="filter-currency" type="text" placeholder="e.g. JPY" maxlength="8">
+        </label>
+        <label class="field">Maximum results
+          <input id="filter-limit" type="number" min="1" max="1000" placeholder="All results">
+        </label>
+        <div class="filter-actions">
+          <button class="button button-primary" type="submit">Apply filters <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+
+      <div class="results-bar">
+        <p id="results-summary" aria-live="polite">Loading countries…</p>
+        <span class="api-pill"><span class="status-dot"></span> Connected to API</span>
+      </div>
+      <div id="country-results" class="country-grid" aria-live="polite"></div>
+      <p id="list-error" class="message message-error" hidden></p>
+    </section>
+
+    <section class="two-column">
+      <section class="panel" aria-labelledby="add-title">
+        <h2 id="add-title">Add a country</h2>
+        <p class="muted">New entries stay available until the server restarts.</p>
+
+        <form id="add-form" class="form-stack">
+          <div class="form-row">
+            <label class="field">Country name *<input name="name" required></label>
+            <label class="field">Capital *<input name="capital" required></label>
+          </div>
+          <div class="form-row">
+            <label class="field">Region *<input name="region" required placeholder="e.g. Europe"></label>
+            <label class="field">Subregion *<input name="subregion" required placeholder="e.g. Northern Europe"></label>
+          </div>
+          <div class="form-row">
+            <label class="field">Currency code *<input name="currency" required maxlength="8" placeholder="e.g. EUR"></label>
+            <label class="field">Currency name<input name="currency_name" placeholder="e.g. Euro"></label>
+          </div>
+          <div class="form-row">
+            <label class="field">Currency symbol<input name="currency_symbol" placeholder="e.g. €"></label>
+            <label class="field">Nationality<input name="nationality" placeholder="e.g. European"></label>
+          </div>
+          <button class="button button-primary" type="submit">Add country <span aria-hidden="true">＋</span></button>
+          <p id="add-message" class="message" role="status" hidden></p>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="edit-title">
+        <h2 id="edit-title">Edit a country</h2>
+        <p class="muted">Update the capital, region, or currency of an existing entry.</p>
+
+        <form id="edit-form" class="form-stack">
+          <label class="field">Country to edit *<input name="countryName" required placeholder="Current country name"></label>
+          <div class="form-row">
+            <label class="field">New capital<input name="capital"></label>
+            <label class="field">New region<input name="region"></label>
+          </div>
+          <div class="form-row">
+            <label class="field">New subregion<input name="subregion"></label>
+            <label class="field">New currency code<input name="currency" maxlength="8"></label>
+          </div>
+          <button class="button button-secondary" type="submit">Save changes <span aria-hidden="true">↗</span></button>
+          <p id="edit-message" class="message" role="status" hidden></p>
+        </form>
+      </section>
+    </section>
+
+    <section id="detail-panel" class="panel detail-panel" hidden aria-labelledby="detail-title">
+      <div class="section-heading">
+        <div><h2 id="detail-title">Country</h2></div>
+        <button id="close-detail" class="button button-quiet" type="button">Close ×</button>
+      </div>
+      <div id="detail-content"></div>
+    </section>
+  </main>
+</body>
+</html>

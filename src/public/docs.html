@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Countries API documentation.">
+  <title>Documentation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.6 Arial, sans-serif;
+      color: #222;
+      background: #fff;
+    }
+
+    a {
+      color: #245b45;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 16px 5%;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .brand {
+      color: #222;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 8px;
+      background: #387653;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav .active {
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .page-shell {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    .hero {
+      padding: 10px 0 24px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    h1 em {
+      color: #387653;
+      font-style: normal;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      font-size: 1rem;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+    }
+
+    .docs-note {
+      display: grid;
+      gap: 4px;
+      margin-top: 20px;
+      padding: 12px;
+      background: #f5f6f4;
+      border-left: 3px solid #387653;
+      overflow-wrap: anywhere;
+    }
+
+    .panel {
+      padding: 24px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: #666;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .endpoint {
+      padding: 18px 0;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .endpoint-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .method {
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .method-get {
+      color: #245b45;
+    }
+
+    .method-post {
+      color: #8a5a16;
+    }
+
+    code,
+    pre {
+      font-family: Consolas, Monaco, monospace;
+      font-size: .9em;
+    }
+
+    .code-example {
+      margin: 12px 0;
+      border: 1px solid #ddd;
+    }
+
+    .code-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      background: #f5f6f4;
+      font-size: .85rem;
+    }
+
+
+
+
+
+    pre {
+      margin: 0;
+      padding: 14px;
+      overflow-x: auto;
+      background: #fafafa;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 4px 0;
+    }
+
+    .status-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .status-list li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .status-list code {
+      min-width: 190px;
+    }
+
+    .page-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 0;
+      color: #666;
+      font-size: .85rem;
+    }
+
+    @media (max-width: 560px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        gap: 14px;
+      }
+
+      .status-list code {
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Home">
+      <span class="brand-mark"></span>
+      Countries API Project
+    </a>
+
+    <nav>
+      <a class="active" href="/docs">Documentation</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <p class="hero-copy">
+        Browse country data or add and edit countries using these endpoints.
+      </p>
+
+      <div class="docs-note">
+        <span>Changes are temporary, and reset when the server is restarted.</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Request example</h2>
+
+      <div class="code-example">
+        <div class="code-top">
+          <span>GET /api/countries?region=Europe&amp;limit=5</span>
+        </div>
+
+        <pre><code>fetch('/api/countries?region=Europe&amp;limit=5', {
+  headers: { Accept: 'application/json' }
+})
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));</code></pre>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>GET and HEAD</h2>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-get">GET / HEAD</span>
+          /api/countries
+        </div>
+
+        <p>Returns all countries, with optional filters.</p>
+
+        <p><strong>Optional query parameters:</strong></p>
+        <ul>
+          <li>name - match part of a country name</li>
+          <li>region - filter by region</li>
+          <li>subregion - filter by subregion</li>
+          <li>currency - filter by currency code</li>
+          <li>limit - maximum results (positive integer)</li>
+        </ul>
+
+        <p>
+          <strong>Responses:</strong>
+          200 country array;
+          400 invalid limit.
+        </p>
+
+        <p>
+          <strong>Example:</strong>
+          <a href="/api/countries?region=Europe&amp;limit=5">
+            /api/countries?region=Europe&amp;limit=5
+          </a>
+        </p>
+      </article>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-get">GET / HEAD</span>
+          /api/regions
+        </div>
+
+        <p>Returns an array of unique region names</p>
+        <p><strong>Response:</strong> 200 JSON array</p>
+
+        <p>
+          <strong>Example:</strong>
+          <a href="/api/regions">/api/regions</a>
+        </p>
+      </article>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-get">GET / HEAD</span>
+          /api/countries/:name
+        </div>
+
+        <p>
+          Returns one country. The name path parameter
+          is case-insensitive; URL-encode spaces and special characters.
+        </p>
+
+        <p>
+          <strong>Responses:</strong>
+          200 country object;
+          404 country not found
+        </p>
+
+        <p>
+          <strong>Example:</strong>
+          <a href="/api/countries/Switzerland">
+            /api/countries/Switzerland
+          </a>
+        </p>
+      </article>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-get">GET / HEAD</span>
+          /api/countries/:name/timezones
+        </div>
+
+        <p>
+          Returns the selected country's time zones. The name path parameter identifies the country.
+        </p>
+
+        <p>
+          <strong>Responses:</strong>
+          200 time-zone array;
+          404 country not found.
+        </p>
+
+        <p>
+          <strong>Example:</strong>
+          <a href="/api/countries/Switzerland/timezones">
+            /api/countries/Switzerland/timezones
+          </a>
+        </p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>POST</h2>
+
+      <p>
+        Send a request body as JSON or
+        application/x-www-form-urlencoded.
+      </p>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-post">POST</span>
+          /api/countries
+        </div>
+
+        <p>Adds a country. Required fields:</p>
+
+        <ul>
+          <li>name - unique country name</li>
+          <li>capital - capital city</li>
+          <li>region and subregion</li>
+          <li>finance.currency - currency code</li>
+        </ul>
+
+        <p>Other country fields are optional.</p>
+
+        <div class="code-example">
+          <div class="code-top">
+            <span>JSON body</span>
+          </div>
+
+          <pre>{
+  "name": "Example Land",
+  "capital": "New Example City",
+  "region": "Europe",
+  "subregion": "Northern Europe",
+  "finance": { "currency": "EXM" }
+}</pre>
+        </div>
+
+        <p>
+          <strong>Responses:</strong>
+          201 created;
+          400 invalid or duplicate country;
+          415 unsupported content type.
+        </p>
+      </article>
+
+      <article class="endpoint">
+        <div class="endpoint-title">
+          <span class="method method-post">POST</span>
+          /api/countries/:name
+        </div>
+
+        <p>
+          Updates an existing country. The required name path
+          parameter is its current name. Include only the fields to change.
+        </p>
+
+        <div class="code-example">
+          <div class="code-top">
+            <span>JSON body example</span>
+            
+          </div>
+
+          <pre>{
+  "capital": "New City",
+  "finance": { "currency": "NEX" }
+}</pre>
+        </div>
+
+        <p>
+          <strong>Responses:</strong>
+          204 updated;
+          400 invalid request;
+          404 country not found;
+          415 unsupported content type.
+        </p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">RESPONSE DETAILS</p>
+      <h2>Status codes</h2>
+
+      <ul class="status-list">
+        <li>200 OK - <span>Request succeeded.</span></li>
+        <li>201 Created - <span>Country added.</span></li>
+        <li>204 No Content - <span>Country updated; no response body.</span></li>
+        <li>400 Bad Request - <span>Invalid request or data.</span></li>
+        <li>404 Not Found - <span>Endpoint or country not found.</span></li>
+        <li>415 Unsupported Media Type - <span>Unsupported POST body format.</span></li>
+      </ul>
+
+      <p>
+        Data responses are JSON. GET and HEAD do not change data.
+        Added and edited countries are stored in memory only.
+      </p>
+    </section>
+
+    <footer class="page-footer">
+      <span>Countries API Project</span>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = "Copied!";
+        } catch {
+          button.textContent = "Select and copy";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
