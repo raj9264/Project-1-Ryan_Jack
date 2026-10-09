@@ -33,7 +33,7 @@ async function requestJson(url, options = {}) {
       const data = await response.json();
       message = data.message || message;
     } catch {
-
+        //Empty
     }
     throw new Error(message);
   }
@@ -155,11 +155,7 @@ async function loadCountries() {
 //Loads a summary
 async function loadSummary() {
   try {
-    const [countries, regions] = await Promise.all([
-      requestJson("/api/countries?limit=1"),
-      requestJson("/api/regions"),
-    ]);
-
+    const regions = await requestJson("/api/regions");
     countryCount.textContent = "Ready";
     regionCount.textContent = regions.length;
     filterRegion.replaceChildren(new Option("All regions", ""));
